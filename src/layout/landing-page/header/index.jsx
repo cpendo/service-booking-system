@@ -1,8 +1,18 @@
 import * as React from "react";
 import { useTheme, AppBar, Box, Toolbar, Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   const theme = useTheme();
+  const navigate = useNavigate();
+
+  const handleUserJoin = () => {
+    navigate("/signup");
+  };
+
+  const handleProviderJoin = () => {
+    navigate("/provider-register");
+  };
 
   return (
     <AppBar
@@ -11,7 +21,7 @@ function Header() {
         backgroundColor: "transparent",
         boxShadow: "none",
         top: 0,
-        height: "64px", // Adjust this if needed
+        height: "64px",
       }}
     >
       <Toolbar disableGutters>
@@ -27,19 +37,29 @@ function Header() {
         >
           <Button
             variant="outlined"
-            sx={{ border: "none", borderRadius: "30px", padding: "10px" }}
+            color="primary"
+            sx={{
+              border: "none",
+              borderRadius: "30px",
+              padding: "10px",
+              textTransform: "none",
+            }}
+            onClick={handleUserJoin}
           >
             Join Us
           </Button>
           <Button
             variant="outlined"
+            color="primary"
             sx={{
               backgroundColor: theme.palette.primary,
               borderRadius: "30px",
               padding: "10px",
+              textTransform: "none",
             }}
+            onClick={handleProviderJoin}
           >
-            Become a service Provider
+            Become a Service Provider
           </Button>
         </Box>{" "}
       </Toolbar>

@@ -4,6 +4,7 @@ import LandingPageLayout from "./layout/landing-page";
 import Register from "./pages/auth/register";
 import Login from "./pages/auth/login";
 import ForgotPassword from "./pages/auth/forgot-password";
+import ProviderRegister from "./pages/auth/provider-join";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/provider-register" element={<ProviderRegister />} />
       </Routes>
     </BrowserRouter>
   );
