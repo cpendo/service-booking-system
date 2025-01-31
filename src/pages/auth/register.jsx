@@ -76,7 +76,12 @@ function Register() {
           }}
         >
           <Typography variant="h5">Register</Typography>
-          <Typography variant="text" color="primary" onClick={handleLogin}>
+          <Typography
+            variant="text"
+            color="primary"
+            onClick={handleLogin}
+            sx={{ cursor: "pointer" }}
+          >
             Already have an account?
           </Typography>
         </Box>

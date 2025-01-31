@@ -3,6 +3,7 @@ import LandingPage from "./pages/landing-page";
 import LandingPageLayout from "./layout/landing-page";
 import Register from "./pages/auth/register";
 import Login from "./pages/auth/login";
+import ForgotPassword from "./pages/auth/forgot-password";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         </Route>
         <Route path="/signup" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   );

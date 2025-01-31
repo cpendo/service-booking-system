@@ -16,20 +16,14 @@ const validationSchema = Yup.object({
   email: Yup.string()
     .required("Email is required")
     .email("Must be a valid email"),
-  password: Yup.string().required("Password is required"),
 });
 
-function Login() {
+function ForgotPassword() {
   const navigate = useNavigate();
 
-  const handleSignUp = () => {
-    navigate("/signup");
+  const handleSignIn = () => {
+    navigate("/login");
   };
-
-  const handleForgotPassword = () => {
-    navigate("/forgot-password");
-  };
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -69,14 +63,14 @@ function Login() {
             marginBottom: "20px",
           }}
         >
-          <Typography variant="h5">Login</Typography>
+          <Typography variant="h5">Forgot Password</Typography>
           <Typography
             variant="text"
             color="primary"
-            onClick={handleSignUp}
+            onClick={handleSignIn}
             sx={{ cursor: "pointer" }}
           >
-            Don't have an account?
+            Back to Login
           </Typography>
         </Box>
         <form onSubmit={formik.handleSubmit}>
@@ -105,36 +99,8 @@ function Login() {
 
             <Grid item xs={12}>
               <Stack spacing={1}>
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <TextField
-                  fullWidth
-                  id="password"
-                  name="password"
-                  placeholder="Enter Password"
-                  type="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={
-                    formik.touched.password && Boolean(formik.errors.password)
-                  }
-                  helperText={
-                    formik.touched.password && formik.errors.password
-                      ? formik.errors.password
-                      : ""
-                  }
-                />
-              </Stack>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Stack spacing={1}>
-                <Typography
-                  variant="text"
-                  onClick={handleForgotPassword}
-                  sx={{ cursor: "pointer" }}
-                >
-                  Forgot Password?
+                <Typography variant="text">
+                  Don't forget to check your spam.
                 </Typography>
               </Stack>
             </Grid>
@@ -151,7 +117,7 @@ function Login() {
                     marginTop: "5px",
                   }}
                 >
-                  Sign In
+                  Send Password Reset Email
                 </Button>
               </Stack>
             </Grid>
@@ -162,4 +128,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ForgotPassword;
