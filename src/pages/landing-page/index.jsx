@@ -1,16 +1,17 @@
-import React from "react";
-import { Card, Typography } from "@mui/material";
-import photo from "../../assets/landing-page-pic.jpg"
+import Hero from "./sections/hero";
+import Service from "./sections/service";
+import Working from "./sections/working";
+import Professionals from "./sections/professionals";
+import Testimonials from "./sections/testimonials";
 
 function LandingPage() {
   return (
     <>
-    <img src={photo}/>
-      <Typography variant="h2">Find and book services instantly!!</Typography>
-      <Typography variant="h4">
-        At Service Hub, we connect you to services from the best rated
-        professionals.
-      </Typography>
+      <Hero />
+      <Service />
+      <Working />
+      <Professionals />
+      <Testimonials />
     </>
   );
 }
