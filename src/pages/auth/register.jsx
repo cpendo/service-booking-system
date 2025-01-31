@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object({
@@ -25,6 +26,12 @@ const validationSchema = Yup.object({
 });
 
 function Register() {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -69,7 +76,7 @@ function Register() {
           }}
         >
           <Typography variant="h5">Register</Typography>
-          <Typography variant="text" color="primary">
+          <Typography variant="text" color="primary" onClick={handleLogin}>
             Already have an account?
           </Typography>
         </Box>
