@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LandingPage from "./pages/landing-page";
+import LandingPageLayout from "./layout/landing-page";
+import Register from "./pages/auth/register";
+import Login from "./pages/auth/login";
+import ForgotPassword from "./pages/auth/forgot-password";
+import ProviderRegister from "./pages/auth/provider-join";
+import PrivateRoute from "./layout/service-provider/private-route";
+import ServiceProviderLayout from "./layout/service-provider";
+import Home from "./pages/service-provider/sections/home";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route element={<LandingPageLayout />}>
+          <Route path="/" element={<LandingPage />} />
+        </Route>
+        <Route path="/signup" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/provider-register" element={<ProviderRegister />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/service-provider" element={<ServiceProviderLayout />}>
+            <Route index element={<Home />}/>
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
