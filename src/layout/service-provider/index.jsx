@@ -1,14 +1,15 @@
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
-import { CssBaseline, Box, Toolbar } from "@mui/material";
+import { CssBaseline, Box, Toolbar, useMediaQuery } from "@mui/material";
 
 import TopBar from "./navigation/top-bar";
 import SideBar from "./navigation/side-bar";
 
 const ServiceProviderLayout = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-
+  
+  const isSmallScreen = useMediaQuery("(max-width: 800px)"); // Adjust breakpoint as needed
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -42,11 +43,19 @@ const ServiceProviderLayout = () => {
       {/* Main Content */}
       <Box
         component="main"
-        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+        sx={{
+          flexGrow: 1,
+          bgcolor: "background.default",
+          p: 0,
+          width: isSmallScreen
+            ? "100vw"
+            : open
+            ? "calc(100vw - 240px)"
+            : "calc(100vw - 70px)", // Adjust based on sidebar width
+        }}
       >
-        <Toolbar>
-          <Outlet />
-        </Toolbar>
+        <Toolbar />
+        <Outlet />
       </Box>
     </Box>
   );

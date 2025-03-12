@@ -27,20 +27,30 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const menuItems = [
-  { icon: <DashboardIcon />, text: "Dashboard" },
-  { icon: <CalendarMonthIcon />, text: "Bookings" },
+  { icon: <DashboardIcon />, text: "Dashboard", route: "dashboard" },
+  { icon: <CalendarMonthIcon />, text: "Bookings", route: "bookings" },
   {
     icon: <WorkIcon />,
     text: "Services",
+    route: "services",
     children: [
-      { icon: <PostAddIcon />, text: "Add services" },
-      { icon: <NoteAltIcon />, text: "Manage services" },
+      {
+        icon: <PostAddIcon />,
+        text: "Add services",
+        route: "services/add-services",
+      },
+      {
+        icon: <NoteAltIcon />,
+        text: "Manage services",
+        route: "services/manage-services",
+      },
     ],
   },
-  { icon: <GroupIcon />, text: "Clients" },
-  { icon: <PaymentsIcon />, text: "Payments" },
+  { icon: <GroupIcon />, text: "Clients", route: "clients" },
+  { icon: <PaymentsIcon />, text: "Payments", route: "payments" },
 ];
 
 const SideBar = ({ open, mobileOpen, handleMobileDrawerToggle }) => {
@@ -96,71 +106,83 @@ const SideBar = ({ open, mobileOpen, handleMobileDrawerToggle }) => {
       </DrawerHeader>
       <Divider />
       <List>
-        {menuItems.map(({ icon, text, children }, index) => (
+        {menuItems.map(({ icon, text, children, route }, index) => (
           <div key={index}>
-            <ListItem disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                onClick={(e) => children && handleExpandClick(text, e)}
-                sx={[
-                  { minHeight: 48, px: 2.5 },
-                  open || mobileOpen
-                    ? { justifyContent: "initial" }
-                    : { justifyContent: "center" },
-                ]}
-              >
-                <ListItemIcon
+            <ListItem disablePadding sx={{ display: "block",  }}>
+              <Link to={route} relative="route">
+                <ListItemButton
+                  onClick={(e) => children && handleExpandClick(text, e)}
                   sx={[
-                    {
-                      minWidth: 0,
-                      justifyContent: "center",
-                    },
+                    { minHeight: 48, px: 2.5 },
                     open || mobileOpen
-                      ? {
-                          mr: 3,
-                        }
-                      : {
-                          mr: "auto",
-                        },
+                      ? { justifyContent: "initial" }
+                      : { justifyContent: "center" },
                   ]}
                 >
-                  {icon}
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  sx={[
-                    open || mobileOpen
-                      ? {
-                          opacity: 1,
-                        }
-                      : {
-                          opacity: 0,
-                        },
-                  ]}
-                />
-                {children &&
-                  (open || mobileOpen) &&
-                  (expandedItems[text] ? <ExpandLess /> : <ExpandMore />)}
-              </ListItemButton>
+                  <ListItemIcon
+                    sx={[
+                      {
+                        minWidth: 0,
+                        justifyContent: "center",
+                      },
+                      open || mobileOpen
+                        ? {
+                            mr: 3,
+                          }
+                        : {
+                            mr: "auto",
+                          },
+                    ]}
+                  >
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={text}
+                    sx={[
+                      {
+                        color: "black", 
+                      },
+                      open || mobileOpen
+                        ? {
+                            opacity: 1,
+                          }
+                        : {
+                            opacity: 0,
+                          },
+                          
+                    ]}
+                  />
+                  {children &&
+                    (open || mobileOpen) &&
+                    (expandedItems[text] ? <ExpandLess color="secondary"/> : <ExpandMore color="secondary"/>)}
+                </ListItemButton>
+              </Link>
             </ListItem>
 
             {/* Nested List */}
             {children && (open || mobileOpen) ? ( // Only collapse when menu is open
               <Collapse in={expandedItems[text]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  {children.map(({ icon, text }, childIndex) => (
+                  {children.map(({ icon, text, route }, childIndex) => (
                     <ListItem
                       key={childIndex}
                       disablePadding
                       sx={{ pl: open ? 4 : 2 }}
                     >
-                      <ListItemButton sx={{ minHeight: 40 }}>
-                        <ListItemIcon
-                          sx={{ minWidth: 0, justifyContent: "center", mr: 2 }}
-                        >
-                          {icon}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                      </ListItemButton>
+                      <Link to={route} relative="route">
+                        <ListItemButton sx={{ minHeight: 40 }}>
+                          <ListItemIcon
+                            sx={{
+                              minWidth: 0,
+                              justifyContent: "center",
+                              mr: 2,
+                            }}
+                          >
+                            {icon}
+                          </ListItemIcon>
+                          <ListItemText primary={text} sx={{color: "black"}}/>
+                        </ListItemButton>
+                      </Link>
                     </ListItem>
                   ))}
                 </List>
@@ -182,17 +204,19 @@ const SideBar = ({ open, mobileOpen, handleMobileDrawerToggle }) => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {children.map(({ icon, text }, index) => (
-                    <MenuItem
-                      key={index}
-                      selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
-                    >
-                      {icon}
-                      <Typography variant="subtitle1" sx={{ pl: 1 }}>
-                        {text}
-                      </Typography>
-                    </MenuItem>
+                  {children.map(({ icon, text, route }, index) => (
+                    <Link to={route} relative="route" key={index}>
+                      <MenuItem
+                        key={index}
+                        selected={index === selectedIndex}
+                        onClick={(event) => handleMenuItemClick(event, index)}
+                      >
+                        {icon}
+                        <Typography variant="subtitle1" sx={{ pl: 1, color: "black" }}>
+                          {text}
+                        </Typography>
+                      </MenuItem>
+                    </Link>
                   ))}
                 </Menu>
               )
