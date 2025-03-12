@@ -23,7 +23,7 @@ import { Link } from "react-router-dom";
 
 const menuItems = [
   { icon: <DashboardIcon />, text: "Dashboard", route: "dashboard" },
-  { icon: <CalendarMonthIcon />, text: "Bookings", route: "bookings" },
+  { icon: <CalendarMonthIcon />, text: "Appointments", route: "appointments" },
   {
     icon: <WorkIcon />,
     text: "Services",

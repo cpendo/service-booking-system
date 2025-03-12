@@ -9,14 +9,6 @@ import PrivateRoute from "./layout/service-provider/private-route";
 import ServiceProviderLayout from "./layout/service-provider";
 import Dashboard from "./pages/service-provider/sections/dashboard";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-const theme = createTheme({
-  typography: {
-    fontFamily: "Poppins, Arial, sans-serif", // Change this to your preferred font
-  },
-});
-
 function App() {
   return (
     <BrowserRouter>
@@ -32,7 +24,7 @@ function App() {
           <Route path="/service-provider" element={<ServiceProviderLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="bookings" element={<p>Book</p>} />
+            <Route path="appointments" element={<p>Book</p>} />
             <Route path="services" element={<p>Services</p>} />
             <Route path="services/add-services" element={<p>Add services</p>} />
             <Route path="services/manage-services" element={<p>manage services</p>} />
