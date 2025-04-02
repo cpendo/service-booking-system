@@ -6,6 +6,8 @@ import {
   Card,
   CardContent,
   useTheme,
+  Container,
+  Paper
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import BookOnline from "@mui/icons-material/BookOnline";
@@ -14,151 +16,117 @@ import ManageAccounts from "@mui/icons-material/ManageAccounts";
 function Working() {
   const theme = useTheme();
   return (
-    <Box sx={{ flexGrow: 1, padding: "30px" }}>
-      <Typography
-        variant="h5"
-        sx={{ marginBottom: theme.spacing(3), fontWeight: 600 }}
-      >
-        How it works
-      </Typography>
-      <Grid container spacing={4}>
-        <Grid item xs={12} sm={3}>
-          <Card
-            sx={{
-              height: "100%",
-              borderRadius: "8px",
-              boxShadow: 3,
-              "&:hover": { transform: "scale(1.05)", transition: "0.3s" },
-              backgroundColor: "#f9f4ef",
-            }}
-          >
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: theme.spacing(3),
-              }}
-            >
-              <Search sx={{ width: "80px", height: "40px" }} />
+    <Box sx={{ py: 8, bgcolor: "#f8f9fa" }}>
+      <Container maxWidth="lg">
+        <Typography
+          variant="h4"
+          sx={{
+            mb: 5,
+            fontWeight: 600,
+            textAlign: "center",
+            position: "relative",
+            "&:after": {
+              content: '""',
+              position: "absolute",
+              bottom: -10,
+              left: "50%",
+              width: "50px",
+              height: "4px",
+              bgcolor: theme.palette.primary.main,
+              transform: "translateX(-50%)",
+            },
+          }}
+        >
+          How It Works
+        </Typography>
 
-              <Typography
-                variant="body2"
+        <Grid container spacing={4}>
+          {[
+            {
+              icon: <Search fontSize="large" color="primary" />,
+              title: "Search",
+              description:
+                "Browse through our selection of trusted professionals",
+              step: 1,
+            },
+            {
+              icon: <BookOnline fontSize="large" color="primary" />,
+              title: "Book",
+              description: "Select the time and date that works for you",
+              step: 2,
+            },
+            {
+              icon: <Paid fontSize="large" color="primary" />,
+              title: "Pay",
+              description: "Secure payment only after service completion",
+              step: 3,
+            },
+            {
+              icon: <ManageAccounts fontSize="large" color="primary" />,
+              title: "Service",
+              description: "Sit back and enjoy professional service",
+              step: 4,
+            },
+          ].map((item, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <Paper
+                elevation={3}
                 sx={{
-                  marginTop: theme.spacing(2),
-                  textAlign: "center",
-                  fontWeight: 500,
+                  height: "100%",
+                  borderRadius: 2,
+                  position: "relative",
+                  overflow: "hidden",
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    transform: "translateY(-10px)",
+                    boxShadow: "0 12px 25px rgba(0,0,0,0.15)",
+                  },
                 }}
               >
-                1. Search
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <Card
-            sx={{
-              height: "100%",
-              borderRadius: "8px",
-              boxShadow: 3,
-              "&:hover": { transform: "scale(1.05)", transition: "0.3s" },
-              backgroundColor: "#f9f4ef",
-            }}
-          >
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: theme.spacing(3),
-              }}
-            >
-              <BookOnline sx={{ width: "80px", height: "40px" }} />
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "40px",
+                    height: "40px",
+                    bgcolor: theme.palette.primary.main,
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: "bold",
+                    zIndex: 1,
+                  }}
+                >
+                  {item.step}
+                </Box>
 
-              <Typography
-                variant="body2"
-                sx={{
-                  marginTop: theme.spacing(2),
-                  textAlign: "center",
-                  fontWeight: 500,
-                }}
-              >
-                2. Book
-              </Typography>
-            </CardContent>
-          </Card>
+                <CardContent
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: theme.spacing(4),
+                    pt: 5,
+                    textAlign: "center",
+                    minHeight: "220px",
+                  }}
+                >
+                  <Box sx={{ fontSize: "3rem", mb: 2 }}>{item.icon}</Box>
+                  <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {item.description}
+                  </Typography>
+                </CardContent>
+              </Paper>
+            </Grid>
+          ))}
         </Grid>
-        <Grid item xs={12} sm={3}>
-          <Card
-            sx={{
-              height: "100%",
-              borderRadius: "8px",
-              boxShadow: 3,
-              "&:hover": { transform: "scale(1.05)", transition: "0.3s" },
-              backgroundColor: "#f9f4ef",
-            }}
-          >
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: theme.spacing(3),
-              }}
-            >
-              <Paid sx={{ width: "80px", height: "40px" }} />
-
-              <Typography
-                variant="body2"
-                sx={{
-                  marginTop: theme.spacing(2),
-                  textAlign: "center",
-                  fontWeight: 500,
-                }}
-              >
-                3. Pay
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <Card
-            sx={{
-              height: "100%",
-              borderRadius: "8px",
-              boxShadow: 3,
-              "&:hover": { transform: "scale(1.05)", transition: "0.3s" },
-              backgroundColor: "#f9f4ef",
-            }}
-          >
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: theme.spacing(3),
-              }}
-            >
-              <ManageAccounts sx={{ width: "80px", height: "40px" }} />
-
-              <Typography
-                variant="body2"
-                sx={{
-                  marginTop: theme.spacing(2),
-                  textAlign: "center",
-                  fontWeight: 500,
-                }}
-              >
-                4. Service
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+      </Container>
     </Box>
   );
 }

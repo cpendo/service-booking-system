@@ -50,8 +50,14 @@ function ForgotPassword() {
       <Box
         sx={{
           border: "1px solid rgba(0, 0, 0, 0.1)",
-          padding: "50px",
-          width: "50%",
+          padding: {
+            xs: "20px",
+            sm: "50px",
+          },
+          width: {
+            xs: "80%",
+            sm: "50%",
+          },
           maxWidth: "500px",
           borderRadius: "20px",
         }}
@@ -60,10 +66,15 @@ function ForgotPassword() {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            marginBottom: "20px",
+            marginBottom: {
+              xs: "50px",
+              sm: "20px",
+            },
           }}
         >
-          <Typography variant="h5">Forgot Password</Typography>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            Forgot Password
+          </Typography>
           <Typography
             variant="text"
             color="primary"
