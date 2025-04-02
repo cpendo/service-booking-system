@@ -50,7 +50,7 @@ function Header() {
         </Typography>
       </Box>
       <Divider />
-      <List>
+      {/* <List>
         {[
           "Home",
           "Services",
@@ -75,7 +75,7 @@ function Header() {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </Box>
   );
 
@@ -105,7 +105,7 @@ function Header() {
             ServiceHub
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-            {["Home", "Services", "How It Works", "Professionals"].map(
+            {/* {["Home", "Services", "How It Works", "Professionals"].map(
               (page) => (
                 <Button
                   key={page}
@@ -118,7 +118,7 @@ function Header() {
                   {page}
                 </Button>
               )
-            )}
+            )} */}
           </Box>
           <Button
             variant="contained"
