@@ -6,11 +6,15 @@ import {
   Stack,
   InputLabel,
   Button,
+  InputAdornment,
+  IconButton,
 } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -20,6 +24,12 @@ const validationSchema = Yup.object({
 });
 
 function Login() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const navigate = useNavigate();
 
   const handleSignUp = () => {
@@ -38,6 +48,7 @@ function Login() {
     validationSchema,
     onSubmit: (values) => {
       console.log(values);
+      navigate("/service-provider/dashboard")
     },
   });
   return (
@@ -56,8 +67,14 @@ function Login() {
       <Box
         sx={{
           border: "1px solid rgba(0, 0, 0, 0.1)",
-          padding: "50px",
-          width: "50%",
+          padding: {
+            xs: "20px",
+            sm: "50px",
+          },
+          width: {
+            xs: "80%",
+            sm: "50%",
+          },
           maxWidth: "500px",
           borderRadius: "20px",
         }}
@@ -66,10 +83,15 @@ function Login() {
           sx={{
             display: "flex",
             justifyContent: "space-between",
-            marginBottom: "20px",
+            marginBottom: {
+              xs: "50px",
+              sm: "20px",
+            },
           }}
         >
-          <Typography variant="h5">Login</Typography>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            Login
+          </Typography>
           <Typography
             variant="text"
             color="primary"
@@ -123,6 +145,23 @@ function Login() {
                       ? formik.errors.password
                       : ""
                   }
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={togglePasswordVisibility}
+                          edge="end"
+                        >
+                          {showPassword ? (
+                            <VisibilityOffIcon />
+                          ) : (
+                            <VisibilityIcon />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </Stack>
             </Grid>
@@ -139,19 +178,23 @@ function Login() {
               </Stack>
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={12} mt={2}>
               <Stack spacing={1}>
                 <Button
                   type="submit"
                   variant="contained"
                   color="primary"
+                  fullWidth
+                  size="large"
                   sx={{
+                    py: 1.5,
                     textTransform: "none",
-                    padding: "10px",
-                    marginTop: "5px",
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    borderRadius: 2,
                   }}
                 >
-                  Sign In
+                  SIGN IN
                 </Button>
               </Stack>
             </Grid>

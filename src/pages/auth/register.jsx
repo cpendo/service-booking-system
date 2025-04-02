@@ -6,11 +6,17 @@ import {
   Stack,
   InputLabel,
   Button,
+  Select,
+  MenuItem,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First Name is required"),
@@ -18,6 +24,10 @@ const validationSchema = Yup.object({
   email: Yup.string()
     .required("Email is required")
     .email("Must be a valid email"),
+  userType: Yup.string().required("User Type is required"),
+  companyName: Yup.string().required("Company Name is required"),
+  serviceType: Yup.string().required("Service Type is required"),
+
   mobile: Yup.string().required("Mobile is required"),
   password: Yup.string().required("Password is required"),
   confirmPassword: Yup.string()
@@ -26,6 +36,16 @@ const validationSchema = Yup.object({
 });
 
 function Register() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword((prev) => !prev);
+  };
   const navigate = useNavigate();
 
   const handleLogin = () => {
@@ -38,6 +58,9 @@ function Register() {
       lastName: "",
       email: "",
       mobile: "",
+      userType: "",
+      companyName: "",
+      serviceType: "",
       password: "",
       confirmPassword: "",
     },
@@ -52,18 +75,25 @@ function Register() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
+        // height: "100vh",
         width: "100%",
         position: "absolute",
         top: 0,
         left: 0,
+        overflowY: "auto"
       }}
     >
       <Box
         sx={{
           border: "1px solid rgba(0, 0, 0, 0.1)",
-          padding: "50px",
-          width: "50%",
+          padding: {
+            xs: "20px",
+            sm: "50px",
+          },
+          width: {
+            xs: "80%",
+            sm: "50%",
+          },
           maxWidth: "500px",
           borderRadius: "20px",
         }}
@@ -75,7 +105,9 @@ function Register() {
             marginBottom: "40px",
           }}
         >
-          <Typography variant="h5">Register</Typography>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            Register
+          </Typography>
           <Typography
             variant="text"
             color="primary"
@@ -135,6 +167,96 @@ function Register() {
             </Grid>
             <Grid item xs={12}>
               <Stack spacing={1}>
+                <InputLabel htmlFor="userType">Joining as</InputLabel>
+                <Select
+                  id="userType"
+                  name="userType"
+                  displayEmpty
+                  fullWidth
+                  value={formik.values.userType}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  error={
+                    formik.touched.userType && Boolean(formik.errors.userType)
+                  }
+                >
+                  <MenuItem value="" disabled>
+                    Select User Type
+                  </MenuItem>
+                  <MenuItem value="Provider">Service Provider</MenuItem>
+                  <MenuItem value="User">Normal User</MenuItem>
+                </Select>
+                {formik.touched.userType && formik.errors.userType && (
+                  <Typography color="error" variant="caption">
+                    {formik.errors.userType}
+                  </Typography>
+                )}
+              </Stack>
+            </Grid>
+
+            {/* Conditionally render companyName and serviceType inputs based on userType */}
+            {formik.values.userType === "Provider" && (
+              <>
+                <Grid item md={6} xs={12}>
+                  <Stack spacing={1}>
+                    <InputLabel htmlFor="companyName">Company Name</InputLabel>
+                    <TextField
+                      fullWidth
+                      id="companyName"
+                      name="companyName"
+                      placeholder="Enter Company Name"
+                      type="text"
+                      value={formik.values.companyName}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={
+                        formik.touched.companyName &&
+                        Boolean(formik.errors.companyName)
+                      }
+                      helperText={
+                        formik.touched.companyName && formik.errors.companyName
+                          ? formik.errors.companyName
+                          : ""
+                      }
+                    />
+                  </Stack>
+                </Grid>
+                <Grid item md={6} xs={12}>
+                  <Stack spacing={1}>
+                    <InputLabel htmlFor="serviceType">Service Type</InputLabel>
+                    <Select
+                      id="serviceType"
+                      name="serviceType"
+                      displayEmpty
+                      fullWidth
+                      value={formik.values.serviceType}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={
+                        formik.touched.serviceType &&
+                        Boolean(formik.errors.serviceType)
+                      }
+                    >
+                      <MenuItem value="" disabled>
+                        Select Service
+                      </MenuItem>
+                      <MenuItem value="internet">Beauty & Styling</MenuItem>
+                      <MenuItem value="hosting">Errand Running</MenuItem>
+                      <MenuItem value="cloud">Shop</MenuItem>
+                    </Select>
+                    {formik.touched.serviceType &&
+                      formik.errors.serviceType && (
+                        <Typography color="error" variant="caption">
+                          {formik.errors.serviceType}
+                        </Typography>
+                      )}
+                  </Stack>
+                </Grid>
+              </>
+            )}
+
+            <Grid item xs={12}>
+              <Stack spacing={1}>
                 <InputLabel htmlFor="email">Email Address</InputLabel>
                 <TextField
                   fullWidth
@@ -183,7 +305,7 @@ function Register() {
                   id="password"
                   name="password"
                   placeholder="Enter Password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -195,6 +317,23 @@ function Register() {
                       ? formik.errors.password
                       : ""
                   }
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={togglePasswordVisibility}
+                          edge="end"
+                        >
+                          {showPassword ? (
+                            <VisibilityOffIcon />
+                          ) : (
+                            <VisibilityIcon />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </Stack>
             </Grid>
@@ -222,18 +361,44 @@ function Register() {
                       ? formik.errors.confirmPassword
                       : ""
                   }
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={toggleConfirmPasswordVisibility}
+                          edge="end"
+                        >
+                          {showConfirmPassword ? (
+                            <VisibilityOffIcon />
+                          ) : (
+                            <VisibilityIcon />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                 />
               </Stack>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} mt={2}>
+              {" "}
               <Stack spacing={1}>
                 <Button
                   type="submit"
                   variant="contained"
                   color="primary"
-                  sx={{ textTransform: "none", padding: "10px" }}
+                  fullWidth
+                  size="large"
+                  sx={{
+                    py: 1.5,
+                    textTransform: "none",
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    borderRadius: 2,
+                  }}
                 >
-                  Sign Up
+                  CREATE ACCOUNT
                 </Button>
               </Stack>
             </Grid>

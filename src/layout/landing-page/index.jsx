@@ -7,7 +7,7 @@ function LandingPageLayout() {
   return (
     <>
       <Header />
-      <Box sx={{ width: "100vw", marginTop: "64px" }}>
+      <Box sx={{ width: "100vw", marginTop: "14px" }}>
         {" "}
         <Outlet />
       </Box>
