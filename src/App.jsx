@@ -7,6 +7,7 @@ import ForgotPassword from "./pages/auth/forgot-password";
 import PrivateRoute from "./layout/service-provider/private-route";
 import ServiceProviderLayout from "./layout/service-provider";
 import Dashboard from "./pages/service-provider/sections/dashboard";
+import Appointments from "./pages/service-provider/sections/appointments";
 import { ThemeProvider } from "@mui/material/styles";
 import Test from "./pages/landing-page/test";
 import theme from "./theme";
@@ -27,7 +28,7 @@ function App() {
             <Route path="/service-provider" element={<ServiceProviderLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="bookings" element={<p>Book</p>} />
+              <Route path="appointments" element={<Appointments />} />
               <Route path="services" element={<p>Services</p>} />
               <Route
                 path="services/add-services"
