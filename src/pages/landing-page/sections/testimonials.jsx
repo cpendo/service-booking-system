@@ -132,7 +132,6 @@ function Testimonials() {
 
             <Box
               sx={{
-                display: "flex",
                 justifyContent: "center",
                 mt: 3,
                 display: { xs: "flex", md: "none" },
