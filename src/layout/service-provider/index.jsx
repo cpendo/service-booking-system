@@ -19,7 +19,7 @@ const ServiceProviderLayout = () => {
   };
 
   const handleMobileDrawerToggle = () => {
-    setMobileOpen((prev) => !prev);
+    setMobileOpen(!mobileOpen);
   };
   return (
     <Box sx={{ display: "flex" }}>
