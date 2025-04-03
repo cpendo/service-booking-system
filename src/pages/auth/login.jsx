@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { login } from "../../redux/slices/auth-reducer";
 
 const validationSchema = Yup.object({
@@ -26,8 +26,6 @@ const validationSchema = Yup.object({
 });
 
 function Login() {
-  const isAuthenticated = useSelector((state) => state.isAuthenticated);
-  console.log(isAuthenticated);
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
