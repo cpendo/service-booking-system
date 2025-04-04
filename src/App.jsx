@@ -9,6 +9,7 @@ import ServiceProviderLayout from "./layout/service-provider";
 import Dashboard from "./pages/service-provider/sections/dashboard";
 import Appointments from "./pages/service-provider/sections/appointments";
 import Test from "./pages/landing-page/test";
+import Services from "./pages/client-user/services";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="appointments" element={<Appointments />} />
-            <Route path="services" element={<p>Services</p>} />
+            <Route path="services" element={<Services />} />
             <Route path="services/add-services" element={<p>Add services</p>} />
             <Route
               path="services/manage-services"
